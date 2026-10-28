@@ -131,7 +131,7 @@ jobs:
         run: ./gradlew spotlessCheck
 
       - name: Build app
-        run: ./gradlew assembleRelease -Pdist=github
+        run: ./gradlew assembleRelease assembleDebug -Pdist=github
 
       - name: Run unit tests
         id: unit_tests
@@ -147,11 +147,17 @@ jobs:
           name: test-report-${{ github.sha }}
           path: app/build/reports/tests/testDebugUnitTest
 
-      - name: Upload APK
+      - name: Upload APK (release unsigned)
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: arm64-v8a-${{ github.sha }}
+          name: arm64-v8a-release-${{ github.sha }}
           path: app/build/outputs/apk/release/app-arm64-v8a-release-unsigned.apk
+
+      - name: Upload APK (debug installable)
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: arm64-v8a-debug-${{ github.sha }}
+          path: app/build/outputs/apk/debug/app-arm64-v8a-debug.apk
 
       - name: Upload mapping
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
