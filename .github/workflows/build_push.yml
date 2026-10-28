@@ -117,7 +117,7 @@ jobs:
           distribution: temurin
 
       - name: Write client_secrets.json
-        if: ${{ secrets.CLIENT_SECRETS_TEXT != '' }}
+        continue-on-error: true
         uses: DamianReeves/write-file-action@v1.2
         with:
           path: app/src/main/assets/client_secrets.json
