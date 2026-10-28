@@ -174,7 +174,6 @@ jobs:
           echo "VERSION_TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
 
       - name: Sign APK
-        if: secrets.SIGNING_KEY != ''
         uses: r0adkll/sign-android-release@f30bdd30588842ac76044ecdbd4b6d0e3e813478
         with:
           releaseDirectory: app/build/outputs/apk/release
@@ -186,7 +185,6 @@ jobs:
           BUILD_TOOLS_VERSION: '35.0.1'
 
       - name: Upload signed APK
-        if: secrets.SIGNING_KEY != ''
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: arm64-v8a-release-signed-${{ github.sha }}
